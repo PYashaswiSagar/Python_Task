@@ -16,13 +16,13 @@ Examples:
 #     ...
 
 
-def set_to_dict(dct, **kwargs):
+def set_to_dict(dict, **kwargs):
     for key, value in kwargs.items():
-        if key not in dct or value > dct[key]:
-            dct[key] = value
+        if key not in dict or value > dict[key]:
+            dict[key] = value
         else:
             pass  
-    return dct
+    return dict
 print(set_to_dict({'a': 1, 'b': 2, 'c': 3}, a=0, b=4))  
 print(set_to_dict({}, a=0)) 
 print(set_to_dict({'a': 5})) 
