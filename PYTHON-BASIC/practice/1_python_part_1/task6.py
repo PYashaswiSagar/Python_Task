@@ -18,7 +18,7 @@ with open(filename) as opened_file:
 """
 from typing import Tuple
 
-
 def get_min_max(filename: str) -> Tuple[int, int]:
-    ...
-
+    with open(filename) as opened_file: 
+        numbers = [int(line.strip()) for line in opened_file]  
+    return min(numbers), max(numbers) 
