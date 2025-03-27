@@ -18,6 +18,23 @@ Examples:
 
 
 def read_numbers(n: int) -> str:
-    ...
+    total = 0   
+    count = 0  
+
+    for _ in range(n):  # Repeat n times to take inputs
+        try:
+            value = float(input("Enter a number: "))  
+            total += value  
+            count += 1
+        except ValueError:
+            pass  # Ignore non-numeric values
+
+    if count > 0:  
+        avg = round(total / count, 2)  
+        return f"Avg: {avg}"  
+    else:
+        return "No numbers entered"  # Return if no valid numbers were entered
+
+print(read_numbers(5))
 
 
