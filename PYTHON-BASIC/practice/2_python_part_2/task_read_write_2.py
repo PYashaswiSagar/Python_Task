@@ -35,12 +35,12 @@ def write_words_to_files(words):
     print("Words written successfully to file1.txt (UTF-8) and file2.txt (CP1252).")
 
     # Print the contents of file1.txt (UTF-8)
-    print("📂 Content of file1.txt (UTF-8):")
+    print("Content of file1.txt (UTF-8):")
     with open("file1.txt", "r", encoding="utf-8") as file1:
         print(file1.read())  # Print content of file1.txt
 
     # Print the contents of file2.txt (CP1252)
-    print("\n📂 Content of file2.txt (CP1252):")
+    print("\nContent of file2.txt (CP1252):")
     with open("file2.txt", "r", encoding="cp1252") as file2:
         print(file2.read())  # Print content of file2.txt
 
