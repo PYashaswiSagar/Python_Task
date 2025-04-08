@@ -10,11 +10,11 @@ import os
 from read_write import extract_and_write_values
 
 def test_extract_and_write_values(tmp_path):
-    # 1️⃣ Create temp input files inside a temp directory
+    # Create temp input files inside a temp directory
     input_dir = tmp_path / "files"
     input_dir.mkdir()
 
-    # 2️⃣ Write the sample content to these files
+    # Write the sample content to these files
     file_contents = {
         "file_1.txt": "23",
         "file_2.txt": "78",
@@ -25,14 +25,14 @@ def test_extract_and_write_values(tmp_path):
         file_path = input_dir / filename
         file_path.write_text(content)
 
-    # 3️⃣ Define the output file path (inside tmp folder)
+    # Define the output file path (inside tmp folder)
     output_file = tmp_path / "result.txt"
 
-    # 4️⃣ Call the function we're testing
+    # Call the function we're testing
     extract_and_write_values(str(input_dir), str(output_file))
 
-    # 5️⃣ Read the content of the output file
+    # Read the content of the output file
     result = output_file.read_text()
 
-    # 6️⃣ Assert that the result is as expected
+    # Assert that the result is as expected
     assert result == "23, 78, 3"
