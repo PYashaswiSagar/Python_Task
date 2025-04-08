@@ -9,13 +9,32 @@ https://stackoverflow.com/a/20507769
 """
 
 
-def test_division_ok(capfd):
-    ...
+import pytest
+from task_exceptions import division, DivisionByOneException
 
-
+# ✅ Test when y == 0 (should return None and print message)
 def test_division_by_zero(capfd):
-    ...
+    result = division(1, 0)
+    out, _ = capfd.readouterr()
+    
+    assert result is None, "Expected None when dividing by zero"
+    assert "Division by 0" in out, "'Division by 0' not printed"
+    assert "Division finished" in out, "'Division finished' not printed"
 
 
+# ✅ Test when y == 1 (should raise custom exception)
 def test_division_by_one(capfd):
-    ...
+    with pytest.raises(DivisionByOneException):
+        division(1, 1)
+    
+    out, _ = capfd.readouterr()
+    assert "Division finished" in out, "'Division finished' not printed"
+
+
+# ✅ Test when division is successful
+def test_division_normal(capfd):
+    result = division(6, 3)
+    out, _ = capfd.readouterr()
+
+    assert result == 2, "Expected 6 // 3 to equal 2"
+    assert "Division finished" in out, "'Division finished' not printed"
