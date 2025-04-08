@@ -12,7 +12,7 @@ https://stackoverflow.com/a/20507769
 import pytest
 from task_exceptions import division, DivisionByOneException
 
-# ✅ Test when y == 0 (should return None and print message)
+#Test when y == 0 (should return None and print message)
 def test_division_by_zero(capfd):
     result = division(1, 0)
     out, _ = capfd.readouterr()
@@ -22,7 +22,7 @@ def test_division_by_zero(capfd):
     assert "Division finished" in out, "'Division finished' not printed"
 
 
-# ✅ Test when y == 1 (should raise custom exception)
+#Test when y == 1 (should raise custom exception)
 def test_division_by_one(capfd):
     with pytest.raises(DivisionByOneException):
         division(1, 1)
@@ -31,7 +31,7 @@ def test_division_by_one(capfd):
     assert "Division finished" in out, "'Division finished' not printed"
 
 
-# ✅ Test when division is successful
+# Test when division is successful
 def test_division_normal(capfd):
     result = division(6, 3)
     out, _ = capfd.readouterr()
