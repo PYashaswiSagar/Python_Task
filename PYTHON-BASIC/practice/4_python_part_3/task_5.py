@@ -6,10 +6,13 @@ Examples:
      200, 'response data'
 """
 from typing import Tuple
-
+from urllib import request
 
 def make_request(url: str) -> Tuple[int, str]:
-    ...
+    with request.urlopen(url) as response:
+        status_code = response.getcode()  # status code like 200, 404, etc.
+        data = response.read().decode('utf-8')  # raw bytes converted to a string
+        return status_code, data
 
 
 """
@@ -24,3 +27,22 @@ Example:
     >>> m.method2()
     b'some text'
 """
+import pytest
+from unittest.mock import MagicMock, patch
+from urllib import request
+from url_request import make_request  # Replace with actual module name
+
+def test_make_request():
+    mock_response = MagicMock()
+    mock_response.getcode.return_value = 200
+    mock_response.read.return_value = b'Some fake data'
+    
+    mock_urlopen = MagicMock()
+    mock_urlopen.__enter__.return_value = mock_response
+
+    with patch('urllib.request.urlopen', return_value=mock_urlopen):
+        status, data = make_request('https://example.com')
+        
+        assert status == 200
+        assert data == 'Some fake data'
+
