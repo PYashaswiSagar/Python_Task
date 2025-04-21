@@ -14,12 +14,46 @@ Example:
 {"some_name": "Courtney Duncan", "fake-address": "8107 Nicole Orchard Suite 762\nJosephchester, WI 05981"}
 """
 
+# task_4.py
 import argparse
+from faker import Faker
+import sys
+import json
 
 
 def print_name_address(args: argparse.Namespace) -> None:
-    ...
+    fake = Faker()
+    for _ in range(args.number):
+        result = {}
+        for field, provider in args.fields.items():
+            try:
+                result[field] = getattr(fake, provider)()
+            except AttributeError:
+                print(f"Provider '{provider}' is not valid.", file=sys.stderr)
+                return
+        print(json.dumps(result))
 
+
+def main():
+    parser = argparse.ArgumentParser(description="Generate fake data using Faker")
+    parser.add_argument("number", type=int, help="Number of fake data instances to generate")
+    
+    # Parse known and unknown args
+    known_args, unknown_args = parser.parse_known_args()
+    
+    # Convert --field=provider to a dictionary
+    fields = {}
+    for item in unknown_args:
+        if item.startswith("--") and "=" in item:
+            key, value = item[2:].split("=", 1)
+            fields[key] = value
+
+    known_args.fields = fields
+    print_name_address(known_args)
+
+
+if __name__ == "__main__":
+    main()
 
 """
 Write test for print_name_address function
@@ -30,3 +64,25 @@ Example:
     >>> m.method()
     123
 """
+# test_task_4.py
+from unittest.mock import Mock
+from task4 import print_name_address
+
+
+def test_print_name_address(capfd):
+    mock_args = Mock()
+    mock_args.number = 1
+    mock_args.fields = {
+        "username": "name",
+        "emailAddress": "email"
+    }
+
+    print_name_address(mock_args)
+    
+    out, err = capfd.readouterr()
+
+
+    assert "username" in out
+    assert "emailAddress" in out
+
+
