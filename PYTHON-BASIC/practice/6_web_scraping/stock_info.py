@@ -196,3 +196,44 @@ excel.save("BlackRock_Holdings.xlsx")
 print("Data saved to BlackRock_Holdings.xlsx")
 
 
+
+# -----------------------test_task.py
+
+import unittest
+import openpyxl
+import os
+
+class TestExcelOutputs(unittest.TestCase):
+
+    def test_ceo_file_created_and_has_data(self):
+        file = "CEO_Profile.xlsx"
+        self.assertTrue(os.path.exists(file), "CEO Excel file was not created.")
+        
+        wb = openpyxl.load_workbook(file)
+        sheet = wb["CEO"]
+        self.assertGreater(sheet.max_row, 1, "CEO sheet is empty (no data rows).")
+        self.assertEqual(sheet.cell(row=1, column=1).value, "Name", "Header mismatch in CEO sheet.")
+
+    # def test_52week_change_data(self):
+    #     file = "Stocks_52WeekChange.xlsx"
+    #     self.assertTrue(os.path.exists(file), "52-week Excel file was not created.")
+
+    #     wb = openpyxl.load_workbook(file)
+    #     sheet = wb.active
+    #     self.assertEqual(sheet.title, "52-Week Change", "Sheet name is incorrect.")
+    #     self.assertGreater(sheet.max_row, 1, "52-week sheet has no data.")
+
+    def test_blackrock_holdings_sheet(self):
+        file = "BlackRock_Holdings.xlsx"  # or "BlackRock_Holdings_Selenium.xlsx" if using Selenium
+        self.assertTrue(os.path.exists(file), "BlackRock Excel file was not created.")
+
+        wb = openpyxl.load_workbook(file)
+        sheet = wb.active
+        self.assertIn(sheet.title, ["BlackRock Holdings"], "Incorrect or missing sheet.")
+        self.assertGreaterEqual(sheet.max_row, 2, "Holdings sheet should have at least one data row.")
+
+if __name__ == "__main__":
+    unittest.main()
+
+
+
