@@ -12,8 +12,8 @@ Examples:
 """
 
 def remove_duplicated_words(line: str) -> str:
-    diff_words = list(dict.fromkeys(line.split()))  
-    return " ".join(diff_words)  
+    rep_words = list(dict.fromkeys(line.split()))  
+    return " ".join(rep_words)  
 # Example usage:
 print(remove_duplicated_words('cat cat dog 1 dog 2'))  
 print(remove_duplicated_words('cat cat cat'))  
