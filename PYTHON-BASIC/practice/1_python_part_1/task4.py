@@ -9,15 +9,15 @@ Examples:
     
 from typing import List
 
-def calculate_power_with_difference(ints: List[int]) -> List[int]:
-    if not ints:
+def calculate_power_with_difference(integers: List[int]) -> List[int]:
+    if not integers:
         return []
     
-    result = [ints[0] ** 2]  
-    for i in range(1, len(ints)):
-        prev_power = ints[i - 1] ** 2  
-        diff = prev_power - ints[i - 1]  
-        result.append(ints[i] ** 2 - diff) 
+    result = [integers[0] ** 2]  
+    for i in range(1, len(integers)):
+        prev_power = integers[i - 1] ** 2  
+        diff = prev_power - integers[i - 1]  
+        result.append(integers[i] ** 2 - diff) 
     
     return result
 
